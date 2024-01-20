@@ -1,29 +1,21 @@
 #!/usr/bin/python3
-def min_operations(n):
-    """
-    Function to find the minimum number of operations required to achieve a specific number of characters
-    in a text file using Copy All and Paste operations.
+'''Minimum Operations'''
 
-    :param n: The number of characters desired in the text file.
-    :return: The minimum number of operations required to achieve the desired number of characters.
-    """
+
+def minOperations(n, result=0):
+    ''' Returns the minimum number of operations to reach n characters
+    '''
     if n <= 1:
-        return 0
+        return (0)
+    elif n <= 3:
+        return (n)
+    hcf = get_hcf(n)
+    return minOperations(hcf) + (n // hcf)
 
-    min_operations = 0
-    current_length = 1
-    clipboard = 0
 
-    dp = [0 for _ in range(n + 1)]
-
-    while current_length < n:
-        if n % current_length == 0:
-            clipboard = current_length
-            min_operations += 1
-
-        current_length += clipboard
-        min_operations += 1
-
-        dp[current_length] = min_operations
-
-    return dp[n]
+def get_hcf(num: int) -> int:
+    '''Returns the highest common factor of num
+    '''
+    for i in range(num // 2, 0, -1):
+        if num % i == 0:
+            return (i)
